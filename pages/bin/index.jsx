@@ -92,7 +92,7 @@ const Index = ({bins}) => {
     <Head>
       <title>Bins | Inventory</title>
     </Head>
-    <Title title='bins' addUrl='/bin/add' />
+    <Title title='bins' />
     <section className={styles.elementWrapper}>
       {(windowSize > 666) ? <><Bins1 bins={bins} /><Bins2 bins={bins} /></> : <Bins bins={bins} />}
     </section>

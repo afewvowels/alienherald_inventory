@@ -7,7 +7,7 @@ handler.get(async (req, res) => {
   const {
     query: { uuid }
   } = req
-  
+
   await db
     .collection('images')
     .where('uuid', '==', uuid)
