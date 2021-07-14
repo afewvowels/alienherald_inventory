@@ -13,7 +13,7 @@ if (!admin.apps.length) {
       authProviderX509CertUrl: process.env.AUTH_PROVIDER_X509_CERT_URL,
       clientX509CertUrl: process.env.CLIENT_X509_CERT_URL
     }),
-    databaseURL: 'https://inventory-aac80.firebaseio.com'
+    databaseURL: process.env.DATABASE_URL
   })
   admin.firestore().settings({ ignoreUndefinedProperties: true })
 }
