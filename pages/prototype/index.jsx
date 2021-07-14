@@ -122,7 +122,7 @@ const Index = ({prototypes, categories, tags}) => {
   // }, [category])
 
   return(<>
-    <Title title='prototypes' addUrl='/prototype/add' />
+    <Title title='prototypes' />
     <section className={styles.elementSelectWrapper}>
       <span>
         <h3>Category Select</h3>

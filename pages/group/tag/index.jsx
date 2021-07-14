@@ -108,7 +108,7 @@ const Index = ({categories, tags}) => {
   }, [categories])
 
   return (<>
-    <Title title='tags' addUrl='/group/tag/add' />
+    <Title title='tags' />
     <section className={styles.elementSelectWrapper}>
       <span>
         <h3>Category Select</h3>

@@ -89,7 +89,7 @@ const Index = ({categories, tags}) => {
     <Head>
       <title>Categories | Inventory</title>
     </Head>
-    <Title title='categories' addUrl='/group/category/add' />
+    <Title title='categories' />
     <section className={styles.elementWrapper}>
       {(size > 666) ? <><Categories1 categories={categories} tags={tags} /><Categories2 categories={categories} tags={tags} /></> : <Categories categories={categories} tags={tags} />}
     </section>

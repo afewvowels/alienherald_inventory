@@ -146,7 +146,7 @@ const Index = ({items, categories, bins}) => {
   }
 
   return(<>
-    <Title title='items' addUrl='/item/add' />
+    <Title title='items' />
     <section className={styles.elementSelectWrapper}>
       <span>
         <h3>Category Select</h3>
