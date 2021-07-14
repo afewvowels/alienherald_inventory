@@ -1,8 +1,7 @@
 import styles from '@styles/elements.module.css'
-import React, { useState } from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import useSWR from 'swr'
-import Router from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -53,49 +52,11 @@ const ViewItem = ({item}) => {
   const { bin } = useBin(item.bin_uuid)
   const { prototype } = usePrototype(item.prototype_uuid)
 
-
-  const [check_in_out, set_check_in_out] = useState(item.in_bin)
-  const [error_msg, set_error_msg] = useState('')
-
-  const deleteItem = async () => {
-    const delRes = await fetch(`/api/item/${item.uuid}`, {
-      method: 'DELETE',
-    })
-
-    if (delRes.status == 201) {
-      console.log('delete sucessful')
-      Router.push('/item')
-    } else {
-      set_error_msg('Error deleting item')
-    }
-  }
-
-  const checkInOut = async () => {
-    let itemStatus = {
-      in_bin: !check_in_out
-    }
-
-    const checkRes = await fetch('/api/item/checkInOut/' + item.uuid, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(itemStatus)
-    })
-
-    if (checkRes.status == 201) {
-      set_check_in_out(!check_in_out)
-      set_error_msg('')
-    } else {
-      set_error_msg(checkRes.text())
-    }
-  }
-
   if (!bin || !prototype) return <FontAwesomeIcon icon={['far', 'atom-alt']} spin size='sm' />
 
   return(
     <div className={styles.elementEntryRowsWrapper}>
-      {error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null}
       <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={checkInOut}>{(check_in_out ? 'Check Out' : 'Check In')}</button>
       </div>
       <div className={styles.elementHeaderRow}>
         <FontAwesomeIcon icon={bin.icon}/>
@@ -117,10 +78,8 @@ const ViewItem = ({item}) => {
       </div>
       <div className={styles.elementInfoRow}>
         <p>Item is in bin</p>
-        <p>{check_in_out ? 'True' : 'False'}</p>
       </div>
       <div className={styles.elementButtonsWrapper}>
-        <button className={`${styles.elementButton} ${styles.elementButtonWide}`} onClick={deleteItem}>Delete</button>
       </div>
     </div>
   )

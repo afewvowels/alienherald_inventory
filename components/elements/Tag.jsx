@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/elements.module.css'
-import Link from 'next/link'
-import Router from 'next/router'
 
 const Tag = ({tag, categories}) => {
   const [category_name, set_category_name] = useState('')
-  const [edit_url, set_edit_url] = useState('')
   const [collapsed, set_collapsed] = useState(true)
 
   useEffect(() => {
@@ -16,21 +13,7 @@ const Tag = ({tag, categories}) => {
         return
       }
     })
-    set_edit_url('/group/tag/edit/' + tag.uuid)
   }, [tag])
-
-  const deleteTag = async () => {
-    const delRes = await fetch('/api/group/tag/' + tag.uuid, {
-      method: 'DELETE',
-    })
-
-    if (delRes.status == 201) {
-      console.log('delete sucessful')
-      Router.push('/group/tag')
-    } else {
-      console.error('error while deleting tag')
-    }
-  }
 
   const openItem = () => {
     set_collapsed(false)
@@ -66,10 +49,6 @@ const Tag = ({tag, categories}) => {
           <p>{tag.description}</p>
         </div>
         <div className={styles.elementButtonsWrapperGrid}>
-          <button className={`${styles.elementButton}`} onClick={deleteTag}>Delete</button>
-          <Link href={edit_url}>
-            <button className={`${styles.elementButton}`}>Edit</button>
-          </Link>
         </div>
       </div>
     )}

@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styles from '@styles/elements.module.css'
-import Router from 'next/router'
-import Link from 'next/link'
 import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -29,7 +27,6 @@ function PrototypeImage({uuid}) {
 const Prototype = ({prototype, categories, tags, startOpen}) => {
   const [tag_names, set_tag_names] = useState([])
   const [category_name, set_category_name] = useState('')
-  const [edit_url, set_edit_url] = useState('')
   const [collapsed, set_collapsed] = useState((startOpen) ? false : true)
 
   useEffect(() => {
@@ -49,8 +46,6 @@ const Prototype = ({prototype, categories, tags, startOpen}) => {
         return
       }
     })
-
-    set_edit_url('/prototype/edit/' + prototype.uuid)
   }, [prototype, tags])
 
   const tagsRef = useCallback(node => {
@@ -76,20 +71,6 @@ const Prototype = ({prototype, categories, tags, startOpen}) => {
       })
     }
   }, [prototype])
-
-  const deletePrototype = async () => {
-    const delRes = await fetch('/api/prototype/' + prototype.uuid, {
-      method: 'DELETE',
-    })
-
-    if (delRes.status == 201) {
-      console.log('delete sucessful')
-      set_collapsed(true)
-      Router.push('/prototype')
-    } else {
-      console.error('error while deleting prototype')
-    }
-  }
 
   const openItem = () => {
     set_collapsed(false)
@@ -140,10 +121,6 @@ const Prototype = ({prototype, categories, tags, startOpen}) => {
           <ul ref={tagsRef} className={styles.elementListCloud}></ul>
         </div>
         <div className={styles.elementButtonsWrapperGrid}>
-          <button className={`${styles.elementButton}`} onClick={deletePrototype}>Delete</button>
-          <Link href={edit_url}>
-            <button className={`${styles.elementButton}`}>Edit</button>
-          </Link>
         </div>
       </div>
     )}
