@@ -1,23 +1,8 @@
 import React, { useState } from 'react'
-import Router from 'next/router'
 import styles from '@styles/elements.module.css'
 
 const Index = ({palette}) => {
-  const [error_msg, set_error_msg] = useState('')
-
-  const handleDelete = async () => {
-    const delRes = await fetch('/api/palettes/' + palette.uuid, {
-      method: 'DELETE'
-    })
-
-    if (delRes.status == 201) {
-      console.log('delete successful')
-      Router.push('/util/palette')
-    } else {
-      console.error('error while deleting palette')
-      set_error_msg(await delRes.text())
-    }
-  }
+  const [error_msg] = useState('')
 
   return(<>
     { error_msg ? <p style={{color: 'red'}}>{error_msg}</p> : null }
@@ -33,7 +18,6 @@ const Index = ({palette}) => {
         <p>{palette.color1}</p>
       </span>
       <span>
-        <button className={styles.elementButton} onClick={handleDelete}>Delete</button>
       </span>
     </div>
   </>)
