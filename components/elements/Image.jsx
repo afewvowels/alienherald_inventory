@@ -53,22 +53,7 @@ function ImageInUse({uuid, deleted}) {
 
 const Image = ({image}) => {
   const [collapsed, set_collapsed] = useState(true)
-  const [deleted, set_deleted] = useState(false)
-
-  const deleteImage = async () => {
-    const delRes = await fetch('/api/image/' + image.uuid, {
-      method: 'DELETE',
-    })
-
-    if (delRes.status == 201) {
-      console.log('delete sucessful')
-      set_collapsed(true)
-      set_deleted(true)
-      // Router.push('/util/image')
-    } else {
-      console.error('error while deleting image')
-    }
-  }
+  const [deleted] = useState(false)
 
   const openImage = () => {
     set_collapsed(false)
@@ -99,7 +84,6 @@ const Image = ({image}) => {
         </div>
         <div className={styles.elementInfoRow}>
           <div className={styles.elementButtonsWrapperGrid}>
-            <button style={{width: '100%', marginTop: '0.333rem', marginBottom: '0.5rem'}} className={`${styles.elementButton} ${styles.elementButtonWide} ${styles.elementButtonImageDelete}`} onClick={deleteImage}>Delete</button>
           </div>
           <FoundImage uuid={image.uuid}/>
         </div>

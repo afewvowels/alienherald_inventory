@@ -1,8 +1,7 @@
 import styles from '@styles/elements.module.css'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
-import Router from 'next/router'
 import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -51,29 +50,7 @@ function ItemsList({uuid}) {
 }
 
 const Bin = ({bin}) => {
-  const [edit_url, set_edit_url] = useState('')
-  const [print_url, set_print_url] = useState('')
   const [collapsed, set_collapsed] = useState(true)
-
-  useEffect(() => {
-    let editUrl = '/bin/edit/' + bin.uuid
-    set_edit_url(editUrl)
-    let printUrl = '/bin/print/' + bin.uuid
-    set_print_url(printUrl)
-  }, [bin])
-
-  const deleteBin = async () => {
-    const delRes = await fetch('/api/bin/' + bin.uuid, {
-      method: 'DELETE',
-    })
-
-    if (delRes.status == 201) {
-      console.log('delete sucessful')
-      Router.push('/bin')
-    } else {
-      console.error('error while deleting bin')
-    }
-  }
 
   const openItem = () => {
     set_collapsed(false)
@@ -125,15 +102,8 @@ const Bin = ({bin}) => {
           <ItemsList uuid={bin.uuid}/>
         </div>
         <div className={styles.elementButtonsWrapperGrid}>
-          <Link href={print_url}>
-            <button className={`${styles.elementButton}`}>Print</button>
-          </Link>
           <Link href={`/bin/viewItems/${bin.uuid}`}>
             <button className={`${styles.elementButton}`}>Items</button>
-          </Link>
-          <button className={`${styles.elementButton}`} onClick={deleteBin}>Delete</button>
-          <Link href={edit_url}>
-            <button className={`${styles.elementButton}`}>Edit</button>
           </Link>
         </div>
       </div>)
