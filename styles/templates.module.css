@@ -201,7 +201,7 @@
 .loadingWrapper {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  left: 2rem;
   width: 2.333rem;
   height: 2.333rem;
   background-color: var(--foreground-color);
